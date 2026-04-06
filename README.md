@@ -54,13 +54,19 @@ webpack-template/
 npm install
 ```
 
-2. Rode o servidor de desenvolvimento:
+2. 'Compile' o projeto com o bundle webpack:
+
+```bash
+npx webpack
+```
+
+3. Rode o servidor de desenvolvimento:
 
 ```bash
 npx webpack serve
 ```
 
-3. Abra no navegador:
+4. Abra no navegador:
 
 ```text
 http://localhost:8080

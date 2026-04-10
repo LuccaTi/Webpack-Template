@@ -6,17 +6,19 @@ O objetivo deste repositório é servir como ponto de partida reutilizável para
 
 ## Descrição
 
-Este projeto usa Webpack como bundler em modo de desenvolvimento, com:
+Este projeto usa Webpack com configuração separada para desenvolvimento e produção, com:
 
 - Entrada JS modular em `src/index.js`.
 - Injeção automática do bundle no HTML via HtmlWebpackPlugin.
 - Suporte a importação de CSS, HTML e imagens.
-- Servidor de desenvolvimento com hot reload.
+- Servidor de desenvolvimento com hot reload e abertura automática do navegador.
+- Build de produção com source map separado.
 
 ## Tecnologias e Conceitos
 
 - JavaScript modular (ES Modules)
 - Webpack 5 + webpack-cli + webpack-dev-server
+- webpack-merge
 - html-webpack-plugin
 - css-loader + style-loader
 - html-loader
@@ -35,13 +37,15 @@ webpack-template/
 |  |- styles.css
 |  |- template.html
 |- package.json
-|- webpack.config.js
+|- webpack.common.js
+|- webpack.dev.js
+|- webpack.prod.js
 |- .gitignore
 ```
 
 ## Como Executar
 
-### Pre-requisitos
+### Pré-requisitos
 
 - Node.js 18+ (recomendado)
 - npm
@@ -54,16 +58,16 @@ webpack-template/
 npm install
 ```
 
-2. 'Compile' o projeto com o bundle webpack:
+2. Rode o servidor de desenvolvimento:
 
 ```bash
-npx webpack
+npm run start
 ```
 
-3. Rode o servidor de desenvolvimento:
+3. Gere o build de produção em `dist/`:
 
 ```bash
-npx webpack serve
+npm run build
 ```
 
 4. Abra no navegador:
@@ -71,11 +75,20 @@ npx webpack serve
 ```text
 http://localhost:8080
 ```
+
+## Scripts Disponíveis
+
+- `npm run start`: inicia o webpack-dev-server com `webpack.dev.js` e abre o navegador.
+- `npm run build`: gera o bundle de produção usando `webpack.prod.js`.
+- `npm run deploy`: publica a pasta `dist/` na branch `gh-pages` via `git subtree`.
+
 ## Observações
 
-- O template esta configurado para desenvolvimento (`mode: development`).
-- O bundle de saida é gerado em `dist/` com limpeza automática a cada build.
-- O layout base segue o padrao Holy Grail com sidebar esquerda, conteúdo central e sidebar direita em telas maiores.
+- A configuração base compartilhada está em `webpack.common.js`.
+- O ambiente de desenvolvimento está em `webpack.dev.js` (`mode: development` + `eval-source-map`).
+- O ambiente de produção está em `webpack.prod.js` (`mode: production` + `source-map`).
+- O bundle de saída é gerado em `dist/` com limpeza automática a cada build.
+- O layout base segue o padrão Holy Grail com sidebar esquerda, conteúdo central e sidebar direita em telas maiores.
 
 
 
